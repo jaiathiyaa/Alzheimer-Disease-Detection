@@ -1,4 +1,5 @@
 import torch
+from torch.ao.pruning import scheduler
 from tqdm import tqdm
 
 def train_model(
@@ -9,6 +10,7 @@ def train_model(
         optimizer,
         device,
         epochs,
+        scheduler=None,
         save_path="best_mode.pth"
 ):
     model.to(device)
@@ -95,6 +97,8 @@ def train_model(
         val_loss = val_loss / len(val_loader)
         val_acc = 100 * val_correct / val_total
 
+        if scheduler is not None:
+            scheduler.step(val_acc)
 
         print("\n----------------------------------------")
         print(f"Epoch {epoch + 1}/{epochs}")
