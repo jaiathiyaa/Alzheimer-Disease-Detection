@@ -1,10 +1,86 @@
-# Python-generated files
+# ==============================================================================
+# Python & Byte-code
+# ==============================================================================
 __pycache__/
-*.py[oc]
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual Environments
+.venv/
+venv/
+env/
+ENV/
+
+# Package & Build Distribution
 build/
 dist/
 wheels/
-*.egg-info
+*.egg-info/
 
-# Virtual environments
-.venv
+# ==============================================================================
+# Model Weights & Temporary Data Storage
+# ==============================================================================
+# Ignore large PyTorch weights but preserve directory structure
+checkpoints/*.pth
+checkpoints/*.pt
+checkpoints/*.onnx
+!checkpoints/.gitkeep
+
+# Ignore datasets and temporary uploads/outputs
+data/combined_images/
+data/processed/
+data/*.zip
+data/*.tar.gz
+
+uploads/*
+!uploads/.gitkeep
+
+outputs/*
+!outputs/.gitkeep
+
+# Ignore generated test output images
+test/*.jpg
+test/*.png
+
+# ==============================================================================
+# Node & Frontend
+# ==============================================================================
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+frontend/.cache/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# ==============================================================================
+# Testing & Coverage
+# ==============================================================================
+.pytest_cache/
+.coverage
+htmlcov/
+
+# ==============================================================================
+# Environment & Secrets
+# ==============================================================================
+.env
+.env.local
+.env.*.local
+*.env
+
+# ==============================================================================
+# IDEs & System Files
+# ==============================================================================
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
