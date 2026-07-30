@@ -122,10 +122,11 @@ Ensure you have the following installed on your machine:
    pip install -e .
    ```
 
-3. **Verify Model Checkpoint**:
-   Ensure the trained PyTorch model weights exist at:
-   ```
-   checkpoints/best_fine_tune_model.pth
+3. **Download Model Checkpoints**:
+   Download the pre-trained ResNet-18 model weights from the [v1.0.0 Release](https://github.com/jaiathiyaa/Alzheimer-Disease-Detection/releases/tag/v1.0.0) into `checkpoints/`:
+   ```bash
+   mkdir -p checkpoints
+   curl -L https://github.com/jaiathiyaa/Alzheimer-Disease-Detection/releases/download/v1.0.0/best_fine_tune_model.pth -o checkpoints/best_fine_tune_model.pth
    ```
 
 4. **Launch the FastAPI Server**:
