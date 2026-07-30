@@ -210,7 +210,7 @@ To train or re-evaluate the ResNet-18 model on a custom MRI dataset:
 ### Hyperparameter Configuration:
 - **Architecture**: Fine-Tuned `ResNet-18` (Pre-trained ImageNet weights)
 - **Trainable Layers**: Un-frozen `layer4` + Custom Fully Connected Linear Head (`in_features -> 4`)
-- **Optimizer**: Adam ($\text{lr} = 10^{-4}$, $\text{weight\_decay} = 10^{-4}$)
+- **Optimizer**: Adam (`lr` = `1e-4`, `weight_decay` = `1e-4`)
 - **Loss Function**: `nn.CrossEntropyLoss()`
 - **LR Scheduler**: `ReduceLROnPlateau(mode='max', factor=0.5, patience=2)`
 - **Batch Size**: `32`
@@ -225,7 +225,7 @@ Grad-CAM (Gradient-weighted Class Activation Mapping) produces visual explanatio
 2. **Gradient Computation**: Calculates the gradients of the target class score with respect to feature map activations of the last convolutional layer.
 3. **Global Average Pooling**: Computes importance weights ($\alpha_k^c$) by pooling spatial gradients.
 4. **Heatmap Generation**: Performs a weighted combination of forward activation maps followed by a ReLU operation to preserve positive features.
-5. **Overlay & Rendering**: Resizes heatmap to `224x224`, applies `COLORMAP_JET`, and overlays onto original MRI image with $\alpha = 0.4$ transparency.
+5. **Overlay & Rendering**: Resizes heatmap to `224x224`, applies `COLORMAP_JET`, and overlays onto original MRI image with `alpha = 0.4` transparency.
 
 ---
 
