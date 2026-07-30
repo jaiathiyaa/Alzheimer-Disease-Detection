@@ -1,41 +1,42 @@
 # 🧠 Alzheimer's Disease Detection & Explainable AI (Grad-CAM)
 
 [![Python 3.13+](https://img.shields.io/badge/python-3.13+-blue.svg)](https://www.python.org/)
-[![PyTorch](https://img.shields.io/badge/PyTorch-2.x-ee4c2c.svg)](https://pytorch.org/)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.140+-009688.svg)](https://fastapi.tiangolo.com/)
-[![React](https://img.shields.io/badge/React-18.x-61dafb.svg)](https://reactjs.org/)
-[![Vite](https://img.shields.io/badge/Vite-6.x-646cff.svg)](https://vitejs.dev/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38bdf8.svg)](https://tailwindcss.com/)
+[![PyTorch 2.x](https://img.shields.io/badge/PyTorch-2.x-ee4c2c.svg)](https://pytorch.org/)
+[![FastAPI 0.140+](https://img.shields.io/badge/FastAPI-0.140+-009688.svg)](https://fastapi.tiangolo.com/)
+[![React 18](https://img.shields.io/badge/React-18.x-61dafb.svg)](https://reactjs.org/)
+[![Vite 6](https://img.shields.io/badge/Vite-6.x-646cff.svg)](https://vitejs.dev/)
+[![Tailwind CSS 3.4](https://img.shields.io/badge/Tailwind_CSS-3.4-38bdf8.svg)](https://tailwindcss.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-An end-to-end deep learning framework and web application designed for early stage diagnosis of **Alzheimer's Disease** using brain Magnetic Resonance Imaging (MRI) scans. The platform integrates a fine-tuned **ResNet-18** deep convolutional network with **Explainable AI (Grad-CAM)** to visually highlight key brain regions driving diagnostic decisions.
+An end-to-end deep learning framework and modern web platform designed for early-stage diagnosis of **Alzheimer's Disease** using brain Magnetic Resonance Imaging (MRI) scans. The platform integrates a fine-tuned **ResNet-18** deep convolutional neural network with **Explainable AI (Grad-CAM)** to visually highlight key brain regions driving diagnostic decisions, enabling interpretable computer-aided clinical assistance.
 
 ---
 
-## ✨ Features
+## ✨ Key Features
 
-- 🔬 **4-Stage Multi-Class Classification**: Accurately classifies brain MRI scans into four clinical dementia stages:
-  - `NonDemented`
-  - `VeryMildDemented`
-  - `MildDemented`
-  - `ModerateDemented`
-- 🧠 **ResNet-18 Neural Network**: Leverages a pre-trained ResNet-18 architecture with un-frozen `layer4` and custom fully connected classification head for optimal feature extraction.
-- 🔥 **Grad-CAM Visualizations**: Generates Gradient-weighted Class Activation Maps overlaid on input scans, allowing medical professionals to inspect regions of interest (e.g., cortical thinning, hippocampal atrophy).
-- ⚡ **FastAPI Backend**: Asynchronous REST API serving predictions, health metrics, and static visual heatmap artifacts.
-- 🎨 **Modern Web Dashboard**: Feature-packed React SPA powered by Vite, Tailwind CSS, Framer Motion, and Recharts for interactive probability visualization and dual-pane heatmap comparison.
+- 🔬 **4-Stage Multi-Class Dementia Classification**: Accurately classifies brain MRI scans into four clinical stages:
+  - `NonDemented` (Normal brain structures)
+  - `VeryMildDemented` (Initial stage subtle changes)
+  - `MildDemented` (Noticeable structural atrophy)
+  - `ModerateDemented` (Advanced cortical & hippocampal atrophy)
+- 🧠 **Fine-Tuned ResNet-18 Backbone**: Utilizes transfer learning with un-frozen `layer4` convolutional blocks and a customized fully connected classifier head for optimal feature extraction and high-confidence predictions.
+- 🔥 **Explainable AI (Grad-CAM)**: Computes Gradient-weighted Class Activation Maps over `model.layer4[-1]` forward/backward hooks, generating heatmaps overlaid on MRI scans to visually pinpoint regions of interest.
+- ⚡ **High-Performance FastAPI Backend**: Asynchronous REST API serving real-time model inference, health monitoring, custom exception handling, and static heatmap asset delivery.
+- 🎨 **Modern React Dashboard**: Sleek web application built with React 18, Vite, Tailwind CSS, Framer Motion, and Recharts, featuring drag-and-drop MRI upload, dynamic probability breakdown charts, and dual-pane image/heatmap comparisons.
 
 ---
 
 ## 📊 Dataset Overview
 
-The dataset consists of preprocessed structural brain MRI slice images balanced across four stages:
+The model is trained and validated on a balanced dataset of structural brain MRI slice images preprocessed and split across four dementia stages:
 
-| Dementia Stage | Sample Count |
-| :--- | :--- |
-| **Non Demented** | 12,800 |
-| **Very Mild Demented** | 11,200 |
-| **Mild Demented** | 10,000 |
-| **Moderate Demented** | 10,000 |
-| **Total Images** | **44,000** |
+| Dementia Stage | Class Name | Sample Count | Percentage |
+| :--- | :--- | :--- | :--- |
+| **Non Demented** | `NonDemented` | 12,800 | 29.1% |
+| **Very Mild Demented** | `VeryMildDemented` | 11,200 | 25.5% |
+| **Mild Demented** | `MildDemented` | 10,000 | 22.7% |
+| **Moderate Demented** | `ModerateDemented` | 10,000 | 22.7% |
+| **Total Images** | — | **44,000** | **100%** |
 
 ---
 
@@ -44,40 +45,51 @@ The dataset consists of preprocessed structural brain MRI slice images balanced 
 ```
 alzheimers_disease_detection/
 ├── app/                      # FastAPI Backend Application
-│   ├── main.py               # Application entry point & CORS configuration
-│   ├── routes.py             # API Endpoints (/predict, /health, /)
-│   ├── predictor.py          # Model inference & Grad-CAM integration wrapper
-│   ├── schemas.py            # API Pydantic response models
-│   └── exceptions.py         # Custom exception handlers
+│   ├── main.py               # API entry point, CORS & static file mounting
+│   ├── routes.py             # Endpoint declarations (/predict, /health, /)
+│   ├── predictor.py          # Model inference wrapper & Grad-CAM pipeline
+│   ├── schemas.py            # Pydantic data schemas & response validation
+│   └── exceptions.py         # Custom HTTP exception handling logic
 │
-├── checkpoints/              # Saved PyTorch Model Weights (.pth)
-│   └── best_fine_tune_model.pth
+├── checkpoints/              # Model Checkpoints
+│   └── best_fine_tune_model.pth # Saved PyTorch fine-tuned model weights
 │
-├── src/                      # Core Machine Learning Pipeline
-│   ├── config/               # Paths & class name constants
-│   ├── data/                 # Dataset loader, transforms, & split script
-│   ├── evaluation/           # Model testing & evaluation metrics
-│   ├── inference/            # Prediction logic & Grad-CAM visualizer
-│   ├── models/               # ResNet-18 model architecture definition
-│   ├── training/             # Model training loops
-│   └── utils/                # Helper utilities
+├── src/                      # Core Machine Learning & Data Pipeline
+│   ├── config/               # System configurations, paths & label mappings
+│   ├── data/                 # Dataset loaders, augmentation transforms & data splitters
+│   ├── evaluation/           # Model testing & performance evaluation metrics
+│   ├── inference/            # Prediction engine & Grad-CAM visualizer engine
+│   ├── models/               # ResNet-18 neural network architecture definition
+│   ├── training/             # Loss tracking, validation & training loops
+│   └── utils/                # General helper utilities
 │
-├── frontend/                 # React + Vite Web Application
+├── frontend/                 # React + Vite Frontend Application
 │   ├── src/
-│   │   ├── components/       # UploadCard, HeatmapViewer, PredictionCard, charts
-│   │   ├── pages/            # Home page view
-│   │   ├── services/         # Axios API connection client
-│   │   └── App.jsx           # Root UI layout component
-│   ├── package.json          # Node dependencies
-│   └── vite.config.js        # Vite dev server configuration
+│   │   ├── components/       # UploadCard, HeatmapViewer, PredictionCard, ProbabilityChart
+│   │   ├── pages/            # Main layout and dashboard views
+│   │   ├── services/         # Axios API HTTP client integrations
+│   │   └── App.jsx           # Core UI router & layout component
+│   ├── package.json          # Frontend Node dependencies & scripts
+│   └── vite.config.js        # Vite dev server configuration & proxy settings
 │
-├── outputs/                  # Generated Grad-CAM heatmaps (API served)
-├── uploads/                  # Temporary image uploads
-├── test/                     # Integration and disjoint unit tests
-├── for_training.py           # Training and evaluation runner script
-├── pyproject.toml            # Python package & dependency specifications
+├── outputs/                  # Generated Grad-CAM heatmaps (served statically)
+├── uploads/                  # Temporary image file uploads
+├── test/                     # Automated unit and integration test suite
+├── for_training.py           # Training and evaluation entry-point script
+├── pyproject.toml            # Python package specifications & dependencies
 └── README.md                 # Project documentation
 ```
+
+---
+
+## 🛠️ Technology Stack
+
+| Layer | Technology / Library |
+| :--- | :--- |
+| **Deep Learning** | PyTorch 2.x, Torchvision, NumPy, OpenCV, Matplotlib |
+| **Backend API** | FastAPI, Uvicorn, Pydantic, Python-Multipart |
+| **Frontend UI** | React 18, Vite 6, Tailwind CSS 3.4, Framer Motion, Recharts, Axios |
+| **Package Management** | `uv` / `pip` (Python), `npm` (Node.js) |
 
 ---
 
@@ -85,22 +97,23 @@ alzheimers_disease_detection/
 
 ### Prerequisites
 
+Ensure you have the following installed on your machine:
 - **Python**: `3.13+`
 - **Node.js**: `18.0+`
-- **Package Managers**: `uv` or `pip` for Python, `npm` for Node.js.
+- **Package Manager**: `uv` (recommended) or `pip`
 
 ---
 
 ### Backend Setup (FastAPI)
 
-1. **Clone the repository** (if not already done):
+1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/your-username/alzheimers-disease-detection.git
-   cd alzheimers-disease-detection
+   git clone https://github.com/jaiathiyaa/Alzheimer-Diseases-Detection.git
+   cd alzheimers_disease_detection
    ```
 
-2. **Install Python dependencies**:
-   Using `uv` (recommended):
+2. **Install Python Dependencies**:
+   Using `uv` (Fast & recommended):
    ```bash
    uv sync
    ```
@@ -109,51 +122,64 @@ alzheimers_disease_detection/
    pip install -e .
    ```
 
-3. **Ensure Model Checkpoint is present**:
-   Verify that your trained model weight file is placed at:
-   `checkpoints/best_fine_tune_model.pth`
+3. **Verify Model Checkpoint**:
+   Ensure the trained PyTorch model weights exist at:
+   ```
+   checkpoints/best_fine_tune_model.pth
+   ```
 
-4. **Start the FastAPI backend server**:
+4. **Launch the FastAPI Server**:
    ```bash
    uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
    ```
-   The backend API will run at `http://localhost:8000`. You can inspect the interactive OpenAPI documentation at `http://localhost:8000/docs`.
+   - API Root: `http://localhost:8000`
+   - Interactive Swagger Docs: `http://localhost:8000/docs`
 
 ---
 
 ### Frontend Setup (React + Vite)
 
-1. **Navigate to the frontend directory**:
+1. **Navigate to Frontend Directory**:
    ```bash
    cd frontend
    ```
 
-2. **Install dependencies**:
+2. **Install Node Dependencies**:
    ```bash
    npm install
    ```
 
-3. **Start the Vite development server**:
+3. **Start Development Server**:
    ```bash
    npm run dev
    ```
-   Open `http://localhost:5173` in your browser to view the application.
+   - Application URL: `http://localhost:5173`
 
 ---
 
 ## 🔌 API Reference
 
 ### `GET /`
-- **Description**: Returns welcome status message.
-- **Response**: `{"message": "Alzheimer Disease Detection API is running!"}`
+- **Description**: Verifies if the API is active.
+- **Response**:
+  ```json
+  {
+    "message": "Alzheimer Disease Detection API is running!"
+  }
+  ```
 
 ### `GET /health`
-- **Description**: Health check endpoint.
-- **Response**: `{"status": "healthy"}`
+- **Description**: Health status check for monitoring services.
+- **Response**:
+  ```json
+  {
+    "status": "healthy"
+  }
+  ```
 
 ### `POST /predict`
-- **Description**: Upload a brain MRI image file to classify dementia stage and generate Grad-CAM heatmap.
-- **Payload**: `multipart/form-data` with `file` (image file).
+- **Description**: Accepts an uploaded brain MRI image file, executes model inference, and returns dementia stage classification with Grad-CAM heatmap location.
+- **Payload**: `multipart/form-data` with key `file` (Image format `.jpg`, `.png`, `.jpeg`).
 - **Sample Response**:
   ```json
   {
@@ -171,31 +197,47 @@ alzheimers_disease_detection/
 
 ---
 
-## 🏋️ Model Training & Evaluation
+## 🏋️ Model Training & Evaluation Pipeline
 
-To train or evaluate the ResNet-18 model on your custom dataset:
+To train or re-evaluate the ResNet-18 model on a custom MRI dataset:
 
-1. Place your dataset directory inside `data/combined_images/`.
-2. Configure training parameters in `for_training.py`.
-3. Run the training script:
+1. **Prepare Dataset**: Place slice images inside `data/combined_images/` structured into class subdirectories.
+2. **Execute Training Script**:
    ```bash
    python for_training.py
    ```
 
-Key Hyperparameters:
+### Hyperparameter Configuration:
+- **Architecture**: Fine-Tuned `ResNet-18` (Pre-trained ImageNet weights)
+- **Trainable Layers**: Un-frozen `layer4` + Custom Fully Connected Linear Head (`in_features -> 4`)
 - **Optimizer**: Adam ($\text{lr} = 10^{-4}$, $\text{weight\_decay} = 10^{-4}$)
-- **Loss Function**: `CrossEntropyLoss`
-- **Learning Rate Scheduler**: `ReduceLROnPlateau(factor=0.5, patience=2)`
-- **Batch Size**: 32
+- **Loss Function**: `nn.CrossEntropyLoss()`
+- **LR Scheduler**: `ReduceLROnPlateau(mode='max', factor=0.5, patience=2)`
+- **Batch Size**: `32`
+- **Input Image Size**: `224x224` (Normalized with ImageNet mean and std)
 
 ---
 
-## 🧪 Running Tests
+## 🔬 Explainable AI (Grad-CAM) Details
 
-Execute test suites for model disjointness and prediction logic:
+Grad-CAM (Gradient-weighted Class Activation Mapping) produces visual explanations for decisions made by the CNN:
+1. **Hook Registration**: Registers forward and backward hooks on `model.model.layer4[-1]`.
+2. **Gradient Computation**: Calculates the gradients of the target class score with respect to feature map activations of the last convolutional layer.
+3. **Global Average Pooling**: Computes importance weights ($\alpha_k^c$) by pooling spatial gradients.
+4. **Heatmap Generation**: Performs a weighted combination of forward activation maps followed by a ReLU operation to preserve positive features.
+5. **Overlay & Rendering**: Resizes heatmap to `224x224`, applies `COLORMAP_JET`, and overlays onto original MRI image with $\alpha = 0.4$ transparency.
+
+---
+
+## 🧪 Testing & Verification
+
+Run automated integration and unit test suites:
 
 ```bash
+# Run prediction pipeline test
 python -m unittest test/test_predict.py
+
+# Run dataset split disjointness test
 python -m unittest test/test_disjoint.py
 ```
 
@@ -203,4 +245,4 @@ python -m unittest test/test_disjoint.py
 
 ## 📜 License
 
-This project is open-source and available under the [MIT License](LICENSE).
+Distributed under the **MIT License**. See `LICENSE` for details.
