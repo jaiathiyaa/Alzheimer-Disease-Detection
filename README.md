@@ -126,7 +126,7 @@ Ensure you have the following installed on your machine:
    Download the pre-trained ResNet-18 model weights from the [v1.0.0 Release](https://github.com/jaiathiyaa/Alzheimer-Disease-Detection/releases/tag/v1.0.0) into `checkpoints/`:
    ```bash
    mkdir -p checkpoints
-   curl -L https://github.com/jaiathiyaa/Alzheimer-Disease-Detection/releases/download/v1.0.0/best_fine_tune_model.pth -o checkpoints/best_fine_tune_model.pth
+   curl -L https://github.com/jaiathiyaa/Alzheimer-Disease-Detection/releases/download/v2.0.0/best_fine_tune_model.pth -o checkpoints/best_fine_tune_model.pth
    ```
 
 4. **Launch the FastAPI Server**:
