@@ -94,13 +94,13 @@ def main():
     # Evaluate the trained model
     # ==========================================================
 
-    evaluate_model(
-        model=model,
-        test_loader=test_loader,
-        criterion=criterion,
-        device=device,
-        checkpoint_path="checkpoints/best_fine_tune_model.pth",
-    )
+    # evaluate_model(
+    #     model=model,
+    #     test_loader=test_loader,
+    #     criterion=criterion,
+    #     device=device,
+    #     checkpoint_path="checkpoints/best_fine_tune_model.pth",
+    # )
 
 
 if __name__ == "__main__":
