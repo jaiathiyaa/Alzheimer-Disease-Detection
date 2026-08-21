@@ -3,9 +3,11 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
+  "engines": {
+    "node": ">=20.0.0 <24.0.0"
+  },
   "scripts": {
     "dev": "vite",
-    "prebuild": "npm install --include=dev",
     "build": "vite build",
     "lint": "vite build",
     "preview": "vite preview"
