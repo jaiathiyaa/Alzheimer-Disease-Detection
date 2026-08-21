@@ -22,10 +22,9 @@ wheels/
 # ==============================================================================
 # Model Weights & Temporary Data Storage
 # ==============================================================================
-# Ignore large PyTorch weights but preserve directory structure
+# Ignore large PyTorch weights but preserve trained model
 checkpoints/*.pth
-checkpoints/*.pt
-checkpoints/*.onnx
+!checkpoints/best_fine_tune_model.pth
 !checkpoints/.gitkeep
 
 # Ignore datasets and temporary uploads/outputs
